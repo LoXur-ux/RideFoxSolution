@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{3B51C58E-3810-4E4E-8E3D-8DA4F95E1DF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Librirary", "Model\Librirary.csproj", "{BA16B80C-C65A-4248-8354-8677C5ADC87D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Libriary", "Model\Libriary.csproj", "{BA16B80C-C65A-4248-8354-8677C5ADC87D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
