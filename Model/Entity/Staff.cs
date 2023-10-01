@@ -11,7 +11,7 @@ public class Staff : Human
 	#region Fields
 
  	[Required] public StaffRole Role { get; set; }
-	public ICollection<Service> Services { get; set; }
+	public virtual ICollection<Service> Services { get; set; }
 
 	#endregion
 

@@ -10,7 +10,7 @@ public class Client : Human
 {
 	#region Fields
 	[Required] public int RentCount { get; set; } = 0;
-	[Required] public ICollection<Rent> Rents { get; set; }
+	[Required] public virtual ICollection<Rent> Rents { get; set; }
 	#endregion
 
 	#region Constructors
