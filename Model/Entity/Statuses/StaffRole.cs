@@ -2,6 +2,6 @@
 
 public enum StaffRole
 {
-    Menager = 1,
-    TechnicalSpecialist = 2
+	Menager = 1,
+	TechnicalSpecialist = 2
 }

@@ -2,8 +2,5 @@
 
 public class Program
 {
-    public static void Main(string[] args)
-    {
-        Console.WriteLine("Start Server ...");
-    }
+	public static void Main(string[] args) => Console.WriteLine("Start Server ...");
 }

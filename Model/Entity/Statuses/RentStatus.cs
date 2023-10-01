@@ -2,6 +2,6 @@
 
 public enum RentStatus
 {
-    Active = 1,
-    Complete = 2
+	Active = 1,
+	Complete = 2
 }

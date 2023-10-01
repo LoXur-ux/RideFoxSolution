@@ -2,12 +2,6 @@
 
 internal class DBContextFactory
 {
-    private static ApplicationContext? applicationContext;
-    public static ApplicationContext? ApplicationContext
-    {
-        get
-        {
-            return applicationContext ?? new ApplicationContext(ApplicationContext.GetDb());
-        }
-    }
+	private static ApplicationContext? applicationContext;
+	public static ApplicationContext? ApplicationContext => applicationContext ?? new ApplicationContext(ApplicationContext.GetDb());
 }
