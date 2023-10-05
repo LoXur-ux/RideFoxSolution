@@ -11,6 +11,12 @@ public class ApplicationContext : DbContext
 	public DbSet<Rent> Rents { get; set; }
 	public DbSet<Scooter> Scooters { get; set; }
 	public DbSet<Staff> Staffers { get; set; }
+	public DbSet<Parking> Parkings { get; set; }
+	public DbSet<Libriary.Entity.Path> Paths { get; set; }
+	public DbSet<Service> Services { get; set; }
+	public DbSet<Address> Addresses { get; set; }
+	public DbSet<Penalty> Penalties { get; set; }
+
 	#endregion
 
 	public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
@@ -22,7 +28,7 @@ public class ApplicationContext : DbContext
 	public static DbContextOptions<ApplicationContext> GetDb()
 	{
 		var optionBuilder = new DbContextOptionsBuilder<ApplicationContext>();
-		return optionBuilder.UseLazyLoadingProxies().UseNpgsql("Host=localhost;Port=5432;Database=RideFox;Username=postgres;Password=12").Options;
+		return optionBuilder.UseNpgsql("Host=localhost;Port=5432;Database=RideFox;Username=postgres;Password=12").Options;
 	}
 
 	protected override void OnModelCreating(ModelBuilder builder)

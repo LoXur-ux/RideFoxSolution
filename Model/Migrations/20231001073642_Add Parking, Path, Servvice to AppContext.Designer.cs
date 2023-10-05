@@ -3,6 +3,7 @@ using System;
 using Librirary;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,13 +12,18 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Libriary.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231001073642_Add Parking, Path, Servvice to AppContext")]
+    partial class AddParkingPathServvicetoAppContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -136,20 +142,20 @@ namespace Libriary.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FromId")
+                    b.Property<int>("AddressFromId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AddressToId")
                         .HasColumnType("integer");
 
                     b.Property<decimal>("PathLenght")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("ToId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("FromId");
+                    b.HasIndex("AddressFromId");
 
-                    b.HasIndex("ToId");
+                    b.HasIndex("AddressToId");
 
                     b.ToTable("Path");
                 });
@@ -169,6 +175,9 @@ namespace Libriary.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<int>("RentId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("TimePayment")
                         .HasColumnType("timestamp with time zone");
 
@@ -177,54 +186,9 @@ namespace Libriary.Migrations
                     b.HasIndex("PaymentLink")
                         .IsUnique();
 
+                    b.HasIndex("RentId");
+
                     b.ToTable("Payment");
-                });
-
-            modelBuilder.Entity("Libriary.Entity.Penalty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AddressId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("InspectorFIO")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Link")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("MVDAddressId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("MVDAddressId");
-
-                    b.ToTable("Penalty");
                 });
 
             modelBuilder.Entity("Libriary.Entity.Rent", b =>
@@ -238,14 +202,8 @@ namespace Libriary.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("End")
+                    b.Property<DateTime>("End")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("PathId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("integer");
 
                     b.Property<int>("ScooterId")
                         .HasColumnType("integer");
@@ -259,10 +217,6 @@ namespace Libriary.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("PathId");
-
-                    b.HasIndex("PaymentId");
 
                     b.HasIndex("ScooterId");
 
@@ -396,48 +350,32 @@ namespace Libriary.Migrations
 
             modelBuilder.Entity("Libriary.Entity.Path", b =>
                 {
-                    b.HasOne("Libriary.Entity.Parking", "From")
+                    b.HasOne("Libriary.Entity.Address", "AddressFrom")
                         .WithMany()
-                        .HasForeignKey("FromId")
+                        .HasForeignKey("AddressFromId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Libriary.Entity.Parking", "To")
+                    b.HasOne("Libriary.Entity.Address", "AddressTo")
                         .WithMany()
-                        .HasForeignKey("ToId")
+                        .HasForeignKey("AddressToId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("From");
+                    b.Navigation("AddressFrom");
 
-                    b.Navigation("To");
+                    b.Navigation("AddressTo");
                 });
 
-            modelBuilder.Entity("Libriary.Entity.Penalty", b =>
+            modelBuilder.Entity("Libriary.Entity.Payment", b =>
                 {
-                    b.HasOne("Libriary.Entity.Address", "Address")
+                    b.HasOne("Libriary.Entity.Rent", "Rent")
                         .WithMany()
-                        .HasForeignKey("AddressId")
+                        .HasForeignKey("RentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Libriary.Entity.Client", "Client")
-                        .WithMany("Penalties")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Libriary.Entity.Address", "MVDAddress")
-                        .WithMany()
-                        .HasForeignKey("MVDAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-
-                    b.Navigation("Client");
-
-                    b.Navigation("MVDAddress");
+                    b.Navigation("Rent");
                 });
 
             modelBuilder.Entity("Libriary.Entity.Rent", b =>
@@ -445,18 +383,6 @@ namespace Libriary.Migrations
                     b.HasOne("Libriary.Entity.Client", "Client")
                         .WithMany("Rents")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Libriary.Entity.Path", "Path")
-                        .WithMany()
-                        .HasForeignKey("PathId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Libriary.Entity.Payment", "Payment")
-                        .WithMany()
-                        .HasForeignKey("PaymentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -468,20 +394,14 @@ namespace Libriary.Migrations
 
                     b.Navigation("Client");
 
-                    b.Navigation("Path");
-
-                    b.Navigation("Payment");
-
                     b.Navigation("Scooter");
                 });
 
             modelBuilder.Entity("Libriary.Entity.Scooter", b =>
                 {
-                    b.HasOne("Libriary.Entity.Parking", "Parking")
+                    b.HasOne("Libriary.Entity.Parking", null)
                         .WithMany("Scooters")
                         .HasForeignKey("ParkingId");
-
-                    b.Navigation("Parking");
                 });
 
             modelBuilder.Entity("Libriary.Entity.Service", b =>
@@ -505,8 +425,6 @@ namespace Libriary.Migrations
 
             modelBuilder.Entity("Libriary.Entity.Client", b =>
                 {
-                    b.Navigation("Penalties");
-
                     b.Navigation("Rents");
                 });
 

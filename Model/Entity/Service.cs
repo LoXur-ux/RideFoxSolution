@@ -6,8 +6,8 @@ public class Service
 	#region Fields
 
 	[Key] public int Id { get; set; }
-	[Required] public virtual Scooter Scooter { get; set; }
-	[Required] public virtual Staff Staff { get; set; }
+	[Required] public Scooter Scooter { get; set; }
+	[Required] public Staff Staff { get; set; }
 	[Required] public string Description { get; set; }
 	[Required] public DateTime Start { get; set; } = DateTime.Now;
 	public DateTime End { get; set; }

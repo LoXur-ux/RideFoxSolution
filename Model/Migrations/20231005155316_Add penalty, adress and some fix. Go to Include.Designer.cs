@@ -3,6 +3,7 @@ using System;
 using Librirary;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Libriary.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231005155316_Add penalty, adress and some fix. Go to Include")]
+    partial class AddpenaltyadressandsomefixGotoInclude
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,20 +139,20 @@ namespace Libriary.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FromId")
+                    b.Property<int>("AddressFromId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AddressToId")
                         .HasColumnType("integer");
 
                     b.Property<decimal>("PathLenght")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("ToId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("FromId");
+                    b.HasIndex("AddressFromId");
 
-                    b.HasIndex("ToId");
+                    b.HasIndex("AddressToId");
 
                     b.ToTable("Path");
                 });
@@ -241,9 +244,6 @@ namespace Libriary.Migrations
                     b.Property<DateTime?>("End")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("PathId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("PaymentId")
                         .HasColumnType("integer");
 
@@ -259,8 +259,6 @@ namespace Libriary.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("PathId");
 
                     b.HasIndex("PaymentId");
 
@@ -396,21 +394,21 @@ namespace Libriary.Migrations
 
             modelBuilder.Entity("Libriary.Entity.Path", b =>
                 {
-                    b.HasOne("Libriary.Entity.Parking", "From")
+                    b.HasOne("Libriary.Entity.Address", "AddressFrom")
                         .WithMany()
-                        .HasForeignKey("FromId")
+                        .HasForeignKey("AddressFromId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Libriary.Entity.Parking", "To")
+                    b.HasOne("Libriary.Entity.Address", "AddressTo")
                         .WithMany()
-                        .HasForeignKey("ToId")
+                        .HasForeignKey("AddressToId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("From");
+                    b.Navigation("AddressFrom");
 
-                    b.Navigation("To");
+                    b.Navigation("AddressTo");
                 });
 
             modelBuilder.Entity("Libriary.Entity.Penalty", b =>
@@ -448,12 +446,6 @@ namespace Libriary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Libriary.Entity.Path", "Path")
-                        .WithMany()
-                        .HasForeignKey("PathId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Libriary.Entity.Payment", "Payment")
                         .WithMany()
                         .HasForeignKey("PaymentId")
@@ -468,8 +460,6 @@ namespace Libriary.Migrations
 
                     b.Navigation("Client");
 
-                    b.Navigation("Path");
-
                     b.Navigation("Payment");
 
                     b.Navigation("Scooter");
@@ -477,11 +467,9 @@ namespace Libriary.Migrations
 
             modelBuilder.Entity("Libriary.Entity.Scooter", b =>
                 {
-                    b.HasOne("Libriary.Entity.Parking", "Parking")
+                    b.HasOne("Libriary.Entity.Parking", null)
                         .WithMany("Scooters")
                         .HasForeignKey("ParkingId");
-
-                    b.Navigation("Parking");
                 });
 
             modelBuilder.Entity("Libriary.Entity.Service", b =>

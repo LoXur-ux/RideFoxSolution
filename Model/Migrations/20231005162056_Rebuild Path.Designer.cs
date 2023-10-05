@@ -3,6 +3,7 @@ using System;
 using Librirary;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Libriary.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231005162056_Rebuild Path")]
+    partial class RebuildPath
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,12 +172,18 @@ namespace Libriary.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<int>("RentId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("TimePayment")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PaymentLink")
+                        .IsUnique();
+
+                    b.HasIndex("RentId")
                         .IsUnique();
 
                     b.ToTable("Payment");
@@ -244,9 +253,6 @@ namespace Libriary.Migrations
                     b.Property<int>("PathId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("ScooterId")
                         .HasColumnType("integer");
 
@@ -261,8 +267,6 @@ namespace Libriary.Migrations
                     b.HasIndex("ClientId");
 
                     b.HasIndex("PathId");
-
-                    b.HasIndex("PaymentId");
 
                     b.HasIndex("ScooterId");
 
@@ -413,6 +417,17 @@ namespace Libriary.Migrations
                     b.Navigation("To");
                 });
 
+            modelBuilder.Entity("Libriary.Entity.Payment", b =>
+                {
+                    b.HasOne("Libriary.Entity.Rent", "Rent")
+                        .WithOne("Payment")
+                        .HasForeignKey("Libriary.Entity.Payment", "RentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rent");
+                });
+
             modelBuilder.Entity("Libriary.Entity.Penalty", b =>
                 {
                     b.HasOne("Libriary.Entity.Address", "Address")
@@ -454,12 +469,6 @@ namespace Libriary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Libriary.Entity.Payment", "Payment")
-                        .WithMany()
-                        .HasForeignKey("PaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Libriary.Entity.Scooter", "Scooter")
                         .WithMany("Rents")
                         .HasForeignKey("ScooterId")
@@ -470,18 +479,14 @@ namespace Libriary.Migrations
 
                     b.Navigation("Path");
 
-                    b.Navigation("Payment");
-
                     b.Navigation("Scooter");
                 });
 
             modelBuilder.Entity("Libriary.Entity.Scooter", b =>
                 {
-                    b.HasOne("Libriary.Entity.Parking", "Parking")
+                    b.HasOne("Libriary.Entity.Parking", null)
                         .WithMany("Scooters")
                         .HasForeignKey("ParkingId");
-
-                    b.Navigation("Parking");
                 });
 
             modelBuilder.Entity("Libriary.Entity.Service", b =>
@@ -513,6 +518,12 @@ namespace Libriary.Migrations
             modelBuilder.Entity("Libriary.Entity.Parking", b =>
                 {
                     b.Navigation("Scooters");
+                });
+
+            modelBuilder.Entity("Libriary.Entity.Rent", b =>
+                {
+                    b.Navigation("Payment")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Libriary.Entity.Scooter", b =>

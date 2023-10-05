@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Libriary.Entity.Units;
 
 namespace Libriary.Entity;
 
@@ -10,9 +9,9 @@ public class Path
 	#region Fields
 
 	[Key] public int Id { get; set; }
-	[Required] public Address AddressFrom { get; set; }
-	[Required] public Address AddressTo { get; set; }
-	public decimal PathLenght {  get; set; }
+	[Required] public Parking From { get; set; }
+	[Required] public Parking To{ get; set; }
+	public decimal PathLenght { get; set; }
 
 	#endregion
 
@@ -21,11 +20,11 @@ public class Path
 	{
 	}
 
-	public Path(int id, Address addressFrom, Address addressTo)
+	public Path(int id, Parking addressFrom, Parking addressTo)
 	{
 		Id = id;
-		AddressFrom = addressFrom;
-		AddressTo = addressTo;
+		From = addressFrom;
+		To = addressTo;
 	}
 	#endregion
 }

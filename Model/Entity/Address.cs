@@ -1,8 +1,11 @@
-﻿namespace Libriary.Entity.Units;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Libriary.Entity;
 
 public class Address
 {
 	#region Fields
+	[Key] public int Id { get; set; }
 	public string Town { get; set; }
 	public string Street { get; set; }
 	public string Number { get; set; }

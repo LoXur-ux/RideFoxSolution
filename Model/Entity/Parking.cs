@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Libriary.Entity.Units;
 
 namespace Libriary.Entity;
 
@@ -11,7 +10,7 @@ public class Parking
 
 	[Key] public int Id { get; set; }
 	[Required] public Address Address { get; set; }
-	[Required] public virtual ICollection<Scooter> Scooters { get; set; }
+	[Required] public ICollection<Scooter> Scooters { get; set; }
 
 	#endregion
 

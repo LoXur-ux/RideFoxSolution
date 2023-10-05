@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Libriary.Entity.Bases;
-using Microsoft.VisualBasic;
 
 namespace Libriary.Entity;
 
@@ -10,7 +9,8 @@ public class Client : Human
 {
 	#region Fields
 	[Required] public int RentCount { get; set; } = 0;
-	[Required] public virtual ICollection<Rent> Rents { get; set; }
+	[Required] public ICollection<Rent> Rents { get; set; }
+	public virtual ICollection<Penalty> Penalties { get; set; }
 	#endregion
 
 	#region Constructors

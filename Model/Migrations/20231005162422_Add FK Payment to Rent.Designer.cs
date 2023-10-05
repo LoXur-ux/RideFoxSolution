@@ -3,6 +3,7 @@ using System;
 using Librirary;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Libriary.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231005162422_Add FK Payment to Rent")]
+    partial class AddFKPaymenttoRent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -477,11 +480,9 @@ namespace Libriary.Migrations
 
             modelBuilder.Entity("Libriary.Entity.Scooter", b =>
                 {
-                    b.HasOne("Libriary.Entity.Parking", "Parking")
+                    b.HasOne("Libriary.Entity.Parking", null)
                         .WithMany("Scooters")
                         .HasForeignKey("ParkingId");
-
-                    b.Navigation("Parking");
                 });
 
             modelBuilder.Entity("Libriary.Entity.Service", b =>
