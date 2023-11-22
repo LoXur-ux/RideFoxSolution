@@ -3,7 +3,7 @@
 namespace Libriary.Entity.Bases;
 
 /// <summary>
-/// Базовый класс, описывающий структуру всех пользователей
+/// Базовый класс, описывающий структуру всех пользователей ИС (Client, Staff)
 /// </summary>
 public class Human
 {

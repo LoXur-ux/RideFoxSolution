@@ -17,8 +17,10 @@ public class Scooter
 	#endregion
 
 	#region Constructors
+
 	public Scooter() { }
-	public Scooter(int id, string scooterName, DateTime dateOfCommissioning, ScooterStatus status, ICollection<Rent> rents, ICollection<Service> services)
+	public Scooter(int id, string scooterName, DateTime dateOfCommissioning,
+		ScooterStatus status, ICollection<Rent> rents, ICollection<Service> services)
 	{
 		Id = id;
 		ScooterName = scooterName;

@@ -1,5 +1,10 @@
-﻿namespace Libriary.Entity.Statuses;
+﻿using System.ComponentModel;
 
+namespace Libriary.Entity.Statuses;
+
+/// <summary>
+/// Перечисление статусов доступных у Аренды (Rent)
+/// </summary>
 public enum RentStatus
 {
 	Active = 1,

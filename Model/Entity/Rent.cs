@@ -21,6 +21,7 @@ public class Rent
 	#endregion
 
 	#region Constructors
+
 	public Rent() { }
 	public Rent(int id, Client client, Scooter scooter, RentStatus status)
 	{
@@ -30,6 +31,7 @@ public class Rent
 		Start = DateTime.Now;
 		Status = status;
 	}
+
 	#endregion
 
 	#region Methods

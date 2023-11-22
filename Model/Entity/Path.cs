@@ -16,6 +16,7 @@ public class Path
 	#endregion
 
 	#region Constructors
+
 	public Path()
 	{
 	}
@@ -26,5 +27,6 @@ public class Path
 		From = addressFrom;
 		To = addressTo;
 	}
+
 	#endregion
 }

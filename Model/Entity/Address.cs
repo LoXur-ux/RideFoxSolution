@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Libriary.Entity;
 
+[Table("")]
 public class Address
 {
 	#region Fields
@@ -13,6 +15,7 @@ public class Address
 	#endregion
 
 	#region Constructors
+
 	public Address()
 	{
 	}
@@ -24,5 +27,6 @@ public class Address
 		Number = number;
 		Build = build;
 	}
+
 	#endregion
 }

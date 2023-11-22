@@ -1,5 +1,8 @@
 ﻿namespace Libriary.Entity.Statuses;
 
+/// <summary>
+/// Перечисление статусов Самокатов (Sctooter)
+/// </summary>
 public enum ScooterStatus
 {
 	Available = 1,

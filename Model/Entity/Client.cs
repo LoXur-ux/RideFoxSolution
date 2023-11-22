@@ -14,6 +14,7 @@ public class Client : Human
 	#endregion
 
 	#region Constructors
+
 	public Client() { }
 	public Client(Human human, ICollection<Rent> rents)
 		: base(human.Login, human.Password, human.Email, human.PhoneNumber, human.DateOfRegister,
@@ -22,6 +23,7 @@ public class Client : Human
 		RentCount = 0;
 		Rents = rents ?? new List<Rent>();
 	}
+
 	#endregion
 
 	#region Methods

@@ -5,7 +5,8 @@ namespace Librirary;
 
 public class ApplicationContext : DbContext
 {
-	#region Fields
+	#region Entity
+
 	public DbSet<Client> Clients { get; set; }
 	public DbSet<Payment> Payments { get; set; }
 	public DbSet<Rent> Rents { get; set; }
