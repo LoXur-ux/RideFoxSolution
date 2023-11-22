@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Libriary.Entity.Statuses;
+﻿namespace Libriary.Entity.Statuses;
 
 /// <summary>
 /// Перечисление статусов доступных у Аренды (Rent)

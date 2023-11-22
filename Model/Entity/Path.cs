@@ -11,7 +11,7 @@ public class Path
 	[Key] public int Id { get; set; }
 	[Required] public Parking From { get; set; }
 	[Required] public Parking To{ get; set; }
-	public decimal PathLenght { get; set; }
+	public decimal PathLength { get; set; }
 
 	#endregion
 

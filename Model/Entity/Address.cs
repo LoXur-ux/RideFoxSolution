@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Libriary.Entity;
 
-[Table("")]
+[Table("Address")]
 public class Address
 {
 	#region Fields

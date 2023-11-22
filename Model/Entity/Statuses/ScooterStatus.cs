@@ -1,7 +1,7 @@
 ﻿namespace Libriary.Entity.Statuses;
 
 /// <summary>
-/// Перечисление статусов Самокатов (Sctooter)
+/// Перечисление статусов Самокатов (Scooter)
 /// </summary>
 public enum ScooterStatus
 {

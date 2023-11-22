@@ -8,12 +8,14 @@ namespace Libriary.Entity;
 public class Scooter
 {
 	#region Fields
+
 	public int Id { get; set; }
 	[Required] public string ScooterName { get; set; }
 	[Required] public DateTime DateOfCommissioning { get; set; } = DateTime.Now;
 	[Required] public ScooterStatus Status { get; set; } = ScooterStatus.Available;
 	[Required] public ICollection<Rent> Rents { get; set; }
 	[Required] public ICollection<Service> Services { get; set; }
+
 	#endregion
 
 	#region Constructors

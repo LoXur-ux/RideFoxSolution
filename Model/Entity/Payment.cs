@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Libriary.Entity;
 
@@ -7,10 +8,10 @@ public class Payment
 {
 	#region Fields
 
-	public int Id { get; set; }
-	public string PaymentLink { get; set; }
-	public decimal Price { get; set; }
-	public DateTime TimePayment { get; set; }
+	[Key] public int Id { get; set; }
+	[Required] public string PaymentLink { get; set; }
+	[Required] public decimal Price { get; set; }
+	[Required] public DateTime TimePayment { get; set; }
 
 	#endregion
 

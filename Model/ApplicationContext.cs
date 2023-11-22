@@ -1,5 +1,9 @@
-﻿using Libriary.Entity;
+﻿using System.Text.Json.Serialization;
+using Libriary.Entity;
+using Libriary.Utils;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Librirary;
 
@@ -18,7 +22,7 @@ public class ApplicationContext : DbContext
 	public DbSet<Address> Addresses { get; set; }
 	public DbSet<Penalty> Penalties { get; set; }
 
-	#endregion
+	#endregion Entity
 
 	public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
 	{
@@ -29,7 +33,7 @@ public class ApplicationContext : DbContext
 	public static DbContextOptions<ApplicationContext> GetDb()
 	{
 		var optionBuilder = new DbContextOptionsBuilder<ApplicationContext>();
-		return optionBuilder.UseNpgsql("Host=localhost;Port=5432;Database=RideFox;Username=postgres;Password=12").Options;
+		return optionBuilder.UseNpgsql(JsonService.GetConnectionString()).Options;
 	}
 
 	protected override void OnModelCreating(ModelBuilder builder)
